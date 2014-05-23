@@ -1,0 +1,3 @@
+// Justin Erdman (jerdman), 10 Sept 2013
+
+to do: finish linux install instructions

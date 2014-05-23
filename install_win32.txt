@@ -1,0 +1,192 @@
+// Justin Erdman (jerdman), 9 Sept 2013
+
+You will need:
+-Windows 7 (not tested on XP, Vista, or 8, may still work)
+-Qt 5
+-Visual Studio 2012 (Any FULL Version. EXPRESS EDITION IS NOT GOOD ENOUGH)
+-Visual Studio Add-in for Qt5
+-OpenCV 2.4
+-GitHub for Windows
+-CMake 2.8 (GUI recommended)
+-OpenTLD 
+
+----Before you begin----
+Ensure that your OS has all necessary updates. 
+Consider installing the following optional programs. Not only will they make the process easier, they are generally useful tools. 
+
+-RapidEE (Rapid Environment Editor)
+	http://www.rapidee.com/en/about
+-Virtual Clone Drive
+	http://www.slysoft.com/en/virtual-clonedrive.html
+
+----Getting Qt 5----
+1. Go to the Qt project downloads page 
+	http://qt-project.org/downloads
+2. Select latest installer Qt 5.x.x for Windows 32-bit (VS 2012). Current version is 5.1.1
+3. Run the installer. This is an on-line installer, so you will need Internet connectivity the entire time. Select the following components, and no others: msvc2012 32-bit, Qt Creator.
+4. Once Qt is installed, ensure that the following environment variable is set:
+	QTDIR = <install_prefix>\Qt\<version>\msvc2012 (e.g. C:\Qt\5.1.1\msvc2012)
+5. Ensure that %QTDIR%\bin has been added to the Path environment variable
+6. Test your installation by opening Qt Creator and running any of the sample programs
+
+----Getting Visual Studio 2012----
+1. Go to Microsoft DreamSpark and create an account using your university email address
+	https://www.dreamspark.com/Student/Software-Catalog.aspx
+2. Download the Visual Studio Professional 2012 installer disk image (*.iso)
+3. Mount or burn the disk image, then run the installer. For this process, you will not need to install any of the optional components. If you are connected to the Internet, the installer will download and install updates for vs2012 during the installation process. System restart is required to complete installation. 
+
+----Getting the Qt Add-in for VS----
+The Qt add-in for VS does not work with the Express Edition of VS.
+
+1. Go to the Qt project downloads page 
+	http://qt-project.org/downloads#qt-other
+2. Under "Other Downloads", select latest version of: 
+	Visual Studio Add-in 1.x.x for Qt5 (current version 1.2.2)
+3. Download and run the installer. For this process, you only need to install the add-in for VS 2012.
+4. Open VS2012. You should now see a "Qt5" menu item between "View" and "Debug". Select "Qt Options" to open the Qt Options dialog. 
+5. In the Qt Versions tab, select "Add". Give the version a name (like 5.1.1) and enter the value of your QTDIR environment variable (e.g. C:\Qt\5.1.1\msvc2012). 
+6. You are now ready to begin working with Qt5 within your VS 2012 environment. 
+
+----Getting OpenCV----
+1. Go to the OpenCV downloads page on sourceforge:
+	http://sourceforge.net/projects/opencvlibrary/
+2. Download the self-extracting archive for windows, OpenCV-2.4.x.x.exe (current version 2.4.6.0).
+	direct link for latest version:
+	http://sourceforge.net/projects/opencvlibrary/files/latest/download?source=files
+3. Extract the OpenCV libraries. 
+4. Set the following environment variable:
+	OPENCV_DIR = <install_prefix>\opencv\build (e.g. C:\Users\justin.erdman\Source\opencv\build)
+5. Add the following to your Path environment variable:
+	%OPENCV_DIR%\x86\vc11\bin
+
+----Getting CMake 2.8----
+1. Go to the CMake downloads page:
+	http://www.cmake.org/cmake/resources/software.html
+2. Download the latest version of the 2.8 installer for windows, 32bit:
+	cmake-2.8.x.x-win32-x86.exe (currently 2.8.11.2)
+3. Run the installer.
+4. Ensure that cmake 2.8 has been added to your Path (e.g. C:\Program Files (x86)\CMake 2.8\bin)
+
+----Getting GitHub for Windows----
+1. Go to GitHub and create an account:
+	https://github.com/
+2. Go to GitHub for Windows:
+	http://windows.github.com/
+3. Download and install GitHub for Windows. 
+4. Run GitHub. Enter you account information and select the default location for repositories. 
+
+----Getting OpenTLD----
+Simplest:
+1. Download a ZIP archive of the OpenTLD project:
+	https://github.com/gnebehay/OpenTLD/archive/master.zip
+	
+Simple:
+1. Go the the OpenTLD page on github:
+	https://github.com/gnebehay/OpenTLD
+2. Select the "Clone in Desktop" button to automatically open GitHub for Windows and clone the repository. 3. Your browser may block this action or ask you for permission. If so, grant permission or try a different browser. 
+
+Complicated:
+1. Use some other git client (with or without GUI) to clone the OpenTLD repository. Visit https://help.github.com/ for more information. 
+
+----Building OpenTLD----
+1. Open CMake. The source code is in the OpenTLD directory. 
+	Where is the source code: <prefix>/OpenTLD (e.g. C:/Users/justin.erdman/Documents/GitHub/OpenTLD)
+2. Select a directory to build the binaries. 
+	Where to build the binaries: <prefix>/OpenTLD/build (e.g. C:/Users/justin.erdman/Documents/GitHub/OpenTLD/build)
+3. Configure. Specify "Visual Studio 11" as the generator and use default native compilers. You should see output similar to the following: 
+	The C compiler identification is MSVC 17.0.60610.1
+	The CXX compiler identification is MSVC 17.0.60610.1
+	Check for working C compiler using: Visual Studio 11
+	Check for working C compiler using: Visual Studio 11 -- works
+	Detecting C compiler ABI info
+	Detecting C compiler ABI info - done
+	Check for working CXX compiler using: Visual Studio 11
+	Check for working CXX compiler using: Visual Studio 11 -- works
+	Detecting CXX compiler ABI info
+	Detecting CXX compiler ABI info - done
+	Found OpenCV 2.4.6 in C:/Users/justin.erdman/Software/opencv/build/x86/vc11/lib
+	You might need to add C:\Users\justin.erdman\Software\opencv\build\x86\vc11\bin to your PATH to be able to run your applications.
+	Configuring done
+4. For this project, you should not need to change any cmake variables.
+5. Generate the VS project files, then close CMake. 
+6. Run Visual Studio 2012 as Administrator. Open the "OpenTLD.sln" generated in step 5. 
+7. Build.
+	7.1 Build the solution in Debug configuration
+	7.2 Build the solution in Release configuration
+8. To ensure that everything worked, run opentld.exe (debug or release)
+9. Set the following environment variable:
+	OPENTLD_DIR = <prefix>\OpenTLD (e.g. C:\Users\justin.erdman\Documents\GitHub\OpenTLD)
+	
+----Getting TigerTracks----
+1. Clone the git repository using your preferred method. (GitHub for Windows is recommended):
+	https://github.com/jerdman/TigerTracks
+
+----Building TigerTracks----
+If your environment variables are properly set, then you should have no problems working with TigerTracks. All project properties are set using these environment variables:
+	QTDIR = <install_prefix>\Qt\<version>\msvc2012 (e.g. C:\Qt\5.1.1\msvc2012)
+	OPENCV_DIR = <install_prefix>\opencv\build (e.g. C:\Users\justin.erdman\Source\opencv\build)
+	OPENTLD_DIR = <prefix>\OpenTLD (e.g. C:\Users\justin.erdman\Documents\GitHub\OpenTLD)
+	Path should contain the following
+		%QTDIR%\bin
+		%OPENCV_DIR%\bin
+		
+1. Open TigerTracks.sln and build the solution. If you encounter problems, you may need to edit the project properties.
+
+----Editing Project Properties----
+All of the properties needed for TigerTracks to access OpenCV and OpenTLD are in the file OpenTLD_32_DEBUG.props. A version for the Release configuration is forthcoming. 
+
+1. Open the solution in VS
+2. From the menu bar, select View -> Property Manager
+3. Under TigerTracks: Debug|Win32, select OpenTLD_32_DEBUG
+4. Depending on how and where you installed/build everything, you may need to edit one or more of the following properties:
+	C/C++: Additional Include Directories
+		$(OPENCV_DIR)\include
+		$(OPENCV_DIR)\include\opencv
+		$(OPENCV_DIR)\include\opencv2
+
+		$(OPENTLD_DIR)\src
+		$(OPENTLD_DIR)\src\3rdparty
+		$(OPENTLD_DIR)\src\3rdparty\cvblobs
+		$(OPENTLD_DIR)\src\3rdparty\libconfig
+		$(OPENTLD_DIR)\src\libopentld
+		$(OPENTLD_DIR)\src\libopentld\imacq
+		$(OPENTLD_DIR)\src\libopentld\mftracker
+		$(OPENTLD_DIR)\src\libopentld\tld
+		$(OPENTLD_DIR)\src\opentld
+		$(OPENTLD_DIR)\src\opentld\main
+		$(OPENTLD_DIR)\src\opentld\qopentld
+		
+	Linker: Additional Library Directories
+		$(OPENCV_DIR)\x86\vc11\lib
+		$(OPENCV_DIR)\x86\vc11\lib\$(Configuration)
+
+		$(OPENTLD_DIR)\build\lib
+		$(OPENTLD_DIR)\build\lib\$(Configuration)
+
+		$(OPENTLD_DIR)\build\bin
+		$(OPENTLD_DIR)\build\bin\$(Configuration)
+		
+	Linker: Additional Dependencies
+		main.lib
+		opentld.lib
+		cvblobs.lib
+		config++.lib
+
+		opencv_calib3d246d.lib
+		opencv_contrib246d.lib
+		opencv_core246d.lib
+		opencv_features2d246d.lib
+		opencv_flann246d.lib
+		opencv_gpu246d.lib
+		opencv_highgui246d.lib
+		opencv_imgproc246d.lib
+		opencv_legacy246d.lib
+		opencv_ml246d.lib
+		opencv_nonfree246d.lib
+		opencv_objdetect246d.lib
+		opencv_photo246d.lib
+		opencv_stitching246d.lib
+		opencv_superres246d.lib
+		opencv_ts246d.lib
+		opencv_video246d.lib
+		opencv_videostab246d.lib
