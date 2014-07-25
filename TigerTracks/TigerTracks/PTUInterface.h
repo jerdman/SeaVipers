@@ -29,12 +29,13 @@ public:
 
 	void panCommandAbsolute(int pan);
 	void tiltCommandAbsolute(int tilt);
+	void panCommandRelative(int pan);
+	void tiltCommandRelative(int tilt);
 
 	void homeCommand(void);
 
 
 private:
-	// calculate checksum
 	void sendCommand(QString command);
 	void parseResponse(QByteArray barr);
 	void setPan(double pan);

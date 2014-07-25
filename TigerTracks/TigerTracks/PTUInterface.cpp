@@ -1,11 +1,9 @@
 #include "PTUInterface.h"
 
-
 PTUInterface::PTUInterface(QObject *parent): QObject(parent)
 {
 	port = new QSerialPort(this);
 }
-
 
 PTUInterface::~PTUInterface(void)
 {
@@ -63,15 +61,20 @@ void PTUInterface::handleError(QSerialPort::SerialPortError error){
 
 }
 
-
-
 void PTUInterface::panCommandAbsolute(int pan){
 	sendCommand(tr("G1L%1").arg(QString(pan)));
 }
 
-
 void PTUInterface::tiltCommandAbsolute(int tilt){
 	sendCommand(tr("G2L%1").arg(QString(tilt)));
+}
+
+void PTUInterface::panCommandRelative(int pan){
+	this->panCommandAbsolute(pan + this->pan);
+}
+
+void PTUInterface::tiltCommandRelative(int tilt){
+	this->tiltCommandAbsolute(tilt + this->tilt);
 }
 
 void PTUInterface::homeCommand(void){

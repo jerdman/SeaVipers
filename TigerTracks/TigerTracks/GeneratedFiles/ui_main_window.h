@@ -36,7 +36,6 @@ public:
     QPushButton *rangePushButton;
     QPushButton *connectRFButton;
     QPushButton *connectPTUButton;
-    QPushButton *demoPushButton;
     QPushButton *homePushButton;
     QLCDNumber *lcdPan;
     QLCDNumber *lcdTilt;
@@ -82,12 +81,9 @@ public:
         connectPTUButton = new QPushButton(centralWidget);
         connectPTUButton->setObjectName(QStringLiteral("connectPTUButton"));
         connectPTUButton->setGeometry(QRect(660, 240, 75, 23));
-        demoPushButton = new QPushButton(centralWidget);
-        demoPushButton->setObjectName(QStringLiteral("demoPushButton"));
-        demoPushButton->setGeometry(QRect(660, 280, 75, 23));
         homePushButton = new QPushButton(centralWidget);
         homePushButton->setObjectName(QStringLiteral("homePushButton"));
-        homePushButton->setGeometry(QRect(660, 320, 75, 23));
+        homePushButton->setGeometry(QRect(660, 270, 75, 23));
         lcdPan = new QLCDNumber(centralWidget);
         lcdPan->setObjectName(QStringLiteral("lcdPan"));
         lcdPan->setGeometry(QRect(660, 180, 71, 23));
@@ -131,7 +127,6 @@ public:
         rangePushButton->setText(QApplication::translate("main_windowClass", "Range", 0));
         connectRFButton->setText(QApplication::translate("main_windowClass", "Connect", 0));
         connectPTUButton->setText(QApplication::translate("main_windowClass", "Connect PTU", 0));
-        demoPushButton->setText(QApplication::translate("main_windowClass", "Demo", 0));
         homePushButton->setText(QApplication::translate("main_windowClass", "Home", 0));
     } // retranslateUi
 

@@ -5,6 +5,7 @@
 #include <QtWidgets/QFileDialog>
 #include <QtWidgets/QMessageBox>
 #include <QMouseEvent>
+#include <QKeyEvent>
 #include <QGraphicsScene>
 #include <QTimer>
 #include "ui_main_window.h"
@@ -30,10 +31,16 @@ private:
 	PTUInterface* ptu;
 	QPixmap pm;
 	QPainter* pnt;
+	int stepSize;
 
 public:
 	main_window(QWidget *parent = 0);
 	~main_window();
+	void keyPressEvent(QKeyEvent *k);
+	void stepUp(void);
+	void stepDown(void);
+	void stepLeft(void);
+	void stepRight(void);
 
 private slots:
 	void updatecamThreadUI(QImage img);
@@ -43,7 +50,6 @@ private slots:
 	void connectRangefinder(void);
 	void toggleRangefinder(void);
 	void connectPTU(void);
-	void ptuDemo(void);
 	void ptuHome(void);
 };
 

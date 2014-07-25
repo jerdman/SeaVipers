@@ -129,24 +129,11 @@
      <string>Connect PTU</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="demoPushButton">
-    <property name="geometry">
-     <rect>
-      <x>660</x>
-      <y>280</y>
-      <width>75</width>
-      <height>23</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Demo</string>
-    </property>
-   </widget>
    <widget class="QPushButton" name="homePushButton">
     <property name="geometry">
      <rect>
       <x>660</x>
-      <y>320</y>
+      <y>270</y>
       <width>75</width>
       <height>23</height>
      </rect>
