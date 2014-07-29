@@ -3,6 +3,8 @@
 PTUInterface::PTUInterface(QObject *parent): QObject(parent)
 {
 	port = new QSerialPort(this);
+	this->setPan(0);
+	this->setTilt(0);
 }
 
 PTUInterface::~PTUInterface(void)
@@ -62,11 +64,13 @@ void PTUInterface::handleError(QSerialPort::SerialPortError error){
 }
 
 void PTUInterface::panCommandAbsolute(int pan){
-	sendCommand(tr("G1L%1").arg(QString(pan)));
+	int n = (pan - 1.0) * 65535.0 / 358.0; // remap from [1, 359] to [0, 65535]
+	sendCommand(tr("G1L%1").arg(QString(n)));
 }
 
 void PTUInterface::tiltCommandAbsolute(int tilt){
-	sendCommand(tr("G2L%1").arg(QString(tilt)));
+	int n = (tilt - 90.0) * 65535.0 / 180.0; // remap to [90, 270] from [0, 65535]
+	sendCommand(tr("G2L%1").arg(QString(n)));
 }
 
 void PTUInterface::panCommandRelative(int pan){
@@ -110,14 +114,26 @@ void PTUInterface::parseResponse(QByteArray barr){
 	double m;
 	switch(barr[0]){
 	case 8: // change level word
-		if(barr.size() < 5)
+		if(barr.size() < 6)
 			break;
 		n = barr.at(3) * 256 + barr.at(4);
 		if(barr.at(2) == 5){ // pan
-			m = 1.0 + n * 358.0 / 65535.0; // remap to 1,359
+			m = 1.0 + n * 358.0 / 65535.0; // remap to [1, 359] from [0, 65535]
 			setPan(m);
 		} else if(barr.at(2) == 6){ // tilt
-			m = 90.0 + n * 180.0 / 65535.0; // remap to 90,270
+			m = 90.0 + n * 180.0 / 65535.0; // remap to [90, 270] from [0, 65535]
+			setTilt(m);
+		}
+		break;
+	case 2: // change level byte
+		if(barr.size() < 5)
+			break;
+		n = barr.at(3);
+		if(barr.at(2) == 0){ // pan
+			m = 1.0 + n * 358.0 / 256.0; // remap to [1, 359] from [0, 256]
+			setPan(m);
+		} else if(barr.at(2) == 1){ // tilt
+			m = 90.0 + n * 180.0 / 256.0; // remap to [90, 270] from [0, 256]
 			setTilt(m);
 		}
 		break;
