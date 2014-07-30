@@ -18,20 +18,20 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>540</y>
+      <y>500</y>
       <width>75</width>
       <height>23</height>
      </rect>
     </property>
     <property name="text">
-     <string>Play</string>
+     <string>Connect</string>
     </property>
    </widget>
    <widget class="QPushButton" name="trackPushButton">
     <property name="geometry">
      <rect>
-      <x>100</x>
-      <y>540</y>
+      <x>90</x>
+      <y>500</y>
       <width>75</width>
       <height>23</height>
      </rect>
@@ -52,6 +52,9 @@
     <property name="cursor" stdset="0">
      <cursorShape>CrossCursor</cursorShape>
     </property>
+    <property name="frameShape">
+     <enum>QFrame::NoFrame</enum>
+    </property>
     <property name="verticalScrollBarPolicy">
      <enum>Qt::ScrollBarAlwaysOff</enum>
     </property>
@@ -62,140 +65,179 @@
      <enum>QGraphicsView::NoDrag</enum>
     </property>
    </widget>
-   <widget class="QLCDNumber" name="lcdRange">
+   <widget class="QGroupBox" name="groupBox">
     <property name="geometry">
      <rect>
       <x>660</x>
-      <y>20</y>
-      <width>71</width>
-      <height>23</height>
+      <y>140</y>
+      <width>120</width>
+      <height>151</height>
      </rect>
     </property>
-    <property name="frameShape">
-     <enum>QFrame::Box</enum>
+    <property name="title">
+     <string>Pan/Tilt Unit</string>
     </property>
-    <property name="frameShadow">
-     <enum>QFrame::Plain</enum>
-    </property>
-    <property name="lineWidth">
-     <number>2</number>
-    </property>
-    <property name="digitCount">
-     <number>6</number>
-    </property>
-    <property name="segmentStyle">
-     <enum>QLCDNumber::Flat</enum>
-    </property>
-    <property name="value" stdset="0">
-     <double>0.000000000000000</double>
-    </property>
+    <widget class="QLCDNumber" name="lcdTilt">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>50</y>
+       <width>81</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::Box</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Plain</enum>
+     </property>
+     <property name="lineWidth">
+      <number>2</number>
+     </property>
+     <property name="digitCount">
+      <number>6</number>
+     </property>
+     <property name="segmentStyle">
+      <enum>QLCDNumber::Flat</enum>
+     </property>
+     <property name="value" stdset="0">
+      <double>0.000000000000000</double>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="connectPTUButton">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>80</y>
+       <width>81</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Connect</string>
+     </property>
+    </widget>
+    <widget class="QLCDNumber" name="lcdPan">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>20</y>
+       <width>81</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::Box</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Plain</enum>
+     </property>
+     <property name="lineWidth">
+      <number>2</number>
+     </property>
+     <property name="digitCount">
+      <number>6</number>
+     </property>
+     <property name="segmentStyle">
+      <enum>QLCDNumber::Flat</enum>
+     </property>
+     <property name="value" stdset="0">
+      <double>0.000000000000000</double>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="homePushButton">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>110</y>
+       <width>81</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Home</string>
+     </property>
+    </widget>
    </widget>
-   <widget class="QPushButton" name="rangePushButton">
+   <widget class="QGroupBox" name="groupBox_2">
     <property name="geometry">
      <rect>
       <x>660</x>
-      <y>80</y>
-      <width>75</width>
-      <height>23</height>
+      <y>10</y>
+      <width>120</width>
+      <height>121</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>Rangefinder</string>
+    </property>
+    <widget class="QLCDNumber" name="lcdRange">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>20</y>
+       <width>81</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::Box</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Plain</enum>
+     </property>
+     <property name="lineWidth">
+      <number>2</number>
+     </property>
+     <property name="digitCount">
+      <number>6</number>
+     </property>
+     <property name="segmentStyle">
+      <enum>QLCDNumber::Flat</enum>
+     </property>
+     <property name="value" stdset="0">
+      <double>0.000000000000000</double>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="connectRFButton">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>50</y>
+       <width>81</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Connect</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="rangePushButton">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>80</y>
+       <width>81</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Range</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QCheckBox" name="learningCheckBox">
+    <property name="geometry">
+     <rect>
+      <x>170</x>
+      <y>500</y>
+      <width>70</width>
+      <height>21</height>
      </rect>
     </property>
     <property name="text">
-     <string>Range</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="connectRFButton">
-    <property name="geometry">
-     <rect>
-      <x>660</x>
-      <y>50</y>
-      <width>75</width>
-      <height>23</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Connect</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="connectPTUButton">
-    <property name="geometry">
-     <rect>
-      <x>660</x>
-      <y>240</y>
-      <width>75</width>
-      <height>23</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Connect PTU</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="homePushButton">
-    <property name="geometry">
-     <rect>
-      <x>660</x>
-      <y>270</y>
-      <width>75</width>
-      <height>23</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Home</string>
-    </property>
-   </widget>
-   <widget class="QLCDNumber" name="lcdPan">
-    <property name="geometry">
-     <rect>
-      <x>660</x>
-      <y>180</y>
-      <width>71</width>
-      <height>23</height>
-     </rect>
-    </property>
-    <property name="frameShape">
-     <enum>QFrame::Box</enum>
-    </property>
-    <property name="frameShadow">
-     <enum>QFrame::Plain</enum>
-    </property>
-    <property name="lineWidth">
-     <number>2</number>
-    </property>
-    <property name="digitCount">
-     <number>6</number>
-    </property>
-    <property name="segmentStyle">
-     <enum>QLCDNumber::Flat</enum>
-    </property>
-    <property name="value" stdset="0">
-     <double>0.000000000000000</double>
-    </property>
-   </widget>
-   <widget class="QLCDNumber" name="lcdTilt">
-    <property name="geometry">
-     <rect>
-      <x>660</x>
-      <y>210</y>
-      <width>71</width>
-      <height>23</height>
-     </rect>
-    </property>
-    <property name="frameShape">
-     <enum>QFrame::Box</enum>
-    </property>
-    <property name="frameShadow">
-     <enum>QFrame::Plain</enum>
-    </property>
-    <property name="lineWidth">
-     <number>2</number>
-    </property>
-    <property name="digitCount">
-     <number>6</number>
-    </property>
-    <property name="segmentStyle">
-     <enum>QLCDNumber::Flat</enum>
-    </property>
-    <property name="value" stdset="0">
-     <double>0.000000000000000</double>
+     <string>Learning</string>
     </property>
    </widget>
   </widget>

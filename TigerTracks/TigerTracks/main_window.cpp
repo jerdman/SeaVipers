@@ -1,35 +1,37 @@
 #include "main_window.h"
 
-main_window::main_window(QWidget *parent)
-	: QMainWindow(parent)
-{
+main_window::main_window(QWidget *parent): QMainWindow(parent){
+	ui.setupUi(this);
+	
+	// camera view
 	camThread = new CameraThread();
 	scene = new QGraphicsScene();
+	pmi = scene->addPixmap(pm);
 	connect(camThread, SIGNAL(imageReady(QImage)), this, SLOT(updatecamThreadUI(QImage)));
-	
-	ui.setupUi(this);
 	connect(ui.playPushButton, SIGNAL(clicked()), this, SLOT(playVideo()));
+	
 
+	// for selecting bb with mouse. click & drag rectangle
+	displayRect = QRect(0, 0, 0, 0);
 	selector = new SelectorOverlay(ui.centralWidget);
 	connect(selector, SIGNAL(selectionReady(QRect)), this, SLOT(handleSelection(QRect)));
 	selector->setGeometry(10, 10, 640, 480);
 	selector->setScene(scene);
 	selector->show();
-
-	displayRect = QRect(0, 0, 0, 0);
 	
+	// rangefinder
 	rf = new RFInterface(this);
 	connect(rf, SIGNAL(rangefinderError(QString)), this, SLOT(displayMessage(QString)));
 	connect(rf, SIGNAL(distanceChanged(double)), ui.lcdRange, SLOT(display(double)));
 	connect(ui.connectRFButton, SIGNAL(clicked()), this, SLOT(connectRangefinder()));
 	connect(ui.rangePushButton, SIGNAL(clicked()), this, SLOT(toggleRangefinder()));
 
+	// pan/tilt unit
 	ptu = new PTUInterface(this);
 	connect(ui.connectPTUButton, SIGNAL(clicked()), this, SLOT(connectPTU()));
 	connect(ui.homePushButton, SIGNAL(clicked()), this, SLOT(ptuHome()));
 	connect(ptu, SIGNAL(panChanged(double)), ui.lcdPan, SLOT(display(double)));
 	connect(ptu, SIGNAL(tiltChanged(double)), ui.lcdTilt, SLOT(display(double)));
-	
 	this->stepSize = 1;
 }
 
@@ -69,15 +71,13 @@ void main_window::stepRight(void){
 
 void main_window::updatecamThreadUI(QImage img){
 	if(!img.isNull()){
-		pm = QPixmap::fromImage(img);
-		// if selection area is greater than 100 px, draw it
-		if((displayRect.width() * displayRect.height()) >= 100){
-			//QPainter pnt(&pm);
-			pnt = new QPainter(&pm);
+		QPixmap pix = QPixmap::fromImage(img);		
+		if(displayRect.width() > 0 && displayRect.height() > 0){
+			pnt = new QPainter(&pix);
 			pnt->setPen(Qt::blue);
 			pnt->drawRect(displayRect);
 		}
-		scene->addPixmap(pm);
+		pmi->setPixmap(pix);
 	}
 }
 
@@ -85,15 +85,15 @@ void main_window::playVideo(void){
 	if(camThread->isStopped()){
 		camThread->openCamera();
 		camThread->playVideo();
-		ui.playPushButton->setText("Stop");
+		ui.playPushButton->setText("Pause");
 	} else {
 		camThread->stopVideo();
-		ui.playPushButton->setText("Play");
+		ui.playPushButton->setText("Resume");
 	}
 }
 
 void main_window::handleSelection(QRect rect){
-	displayRect = rect;
+	displayRect = QRect(rect);
 }
 
 void main_window::displayError(QString message){

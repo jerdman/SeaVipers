@@ -8,6 +8,7 @@
 #include <QKeyEvent>
 #include <QGraphicsScene>
 #include <QTimer>
+#include <QGraphicsPixmapItem>
 #include "ui_main_window.h"
 
 #include "CameraThread.h"
@@ -29,9 +30,11 @@ private:
 	QRect displayRect;
 	RFInterface* rf;
 	PTUInterface* ptu;
+	QGraphicsPixmapItem* pmi;
 	QPixmap pm;
 	QPainter* pnt;
 	int stepSize;
+
 
 public:
 	main_window(QWidget *parent = 0);
@@ -51,6 +54,7 @@ private slots:
 	void toggleRangefinder(void);
 	void connectPTU(void);
 	void ptuHome(void);
+	void toggleTracking(void);
 };
 
 #endif // MAIN_WINDOW_H

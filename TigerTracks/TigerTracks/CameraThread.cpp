@@ -18,15 +18,17 @@ CameraThread::~CameraThread(void)
 }
 
 void CameraThread::run(void){
-	// int delay = (1000/frameRate);
 	while(!stop){
 		if(!camera.isConnected()){
 			stop = true;
 			break;
 		}
-		emit imageReady(camera.advance());
-		msleep(10); // 33 milliseconds = 1/30 seconds 
-		// use delay for msleep?
+		camera.capture();
+		emit imageReady(camera.getCurrentImage());
+		emit matReady(camera.getCurrentMat());
+		// 33 milliseconds = 1/30 seconds
+		// 111 milliseconds = 1/9 seconds
+		msleep(111);  
 	}
 }
 

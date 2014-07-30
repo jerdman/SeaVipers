@@ -26,6 +26,7 @@ private:
 
 signals:
 	void imageReady(const QImage &image);
+	void matReady(cv::Mat mat);
 
 protected:
 	void run(void);

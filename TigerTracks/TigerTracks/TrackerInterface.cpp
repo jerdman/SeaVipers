@@ -82,7 +82,6 @@ void TrackerInterface::clearTracker(void){
 }
 
 
-TrackerInterface::~TrackerInterface(void)
-{
+TrackerInterface::~TrackerInterface(void){
 	delete tld_tracker;
 }

@@ -22,7 +22,6 @@ public:
 
 	// from CameraDevice
 	void capture(void);
-	QImage advance(void);
 
 	// new members
 	OpenCVCam(void);
@@ -34,8 +33,11 @@ public:
 	int getCamNum(void){
 		return camnum;
 	}
-	QImage getCurrent(void){
+	QImage getCurrentImage(void){
 		return current;
+	}
+	cv::Mat getCurrentMat(void){
+		return inc;
 	}
 	bool isConnected(void){
 		return connected;

@@ -13,7 +13,9 @@
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
+#include <QtWidgets/QCheckBox>
 #include <QtWidgets/QGraphicsView>
+#include <QtWidgets/QGroupBox>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLCDNumber>
 #include <QtWidgets/QMainWindow>
@@ -32,13 +34,16 @@ public:
     QPushButton *playPushButton;
     QPushButton *trackPushButton;
     QGraphicsView *graphicsView;
-    QLCDNumber *lcdRange;
-    QPushButton *rangePushButton;
-    QPushButton *connectRFButton;
-    QPushButton *connectPTUButton;
-    QPushButton *homePushButton;
-    QLCDNumber *lcdPan;
+    QGroupBox *groupBox;
     QLCDNumber *lcdTilt;
+    QPushButton *connectPTUButton;
+    QLCDNumber *lcdPan;
+    QPushButton *homePushButton;
+    QGroupBox *groupBox_2;
+    QLCDNumber *lcdRange;
+    QPushButton *connectRFButton;
+    QPushButton *rangePushButton;
+    QCheckBox *learningCheckBox;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -52,56 +57,66 @@ public:
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         playPushButton = new QPushButton(centralWidget);
         playPushButton->setObjectName(QStringLiteral("playPushButton"));
-        playPushButton->setGeometry(QRect(10, 540, 75, 23));
+        playPushButton->setGeometry(QRect(10, 500, 75, 23));
         trackPushButton = new QPushButton(centralWidget);
         trackPushButton->setObjectName(QStringLiteral("trackPushButton"));
-        trackPushButton->setGeometry(QRect(100, 540, 75, 23));
+        trackPushButton->setGeometry(QRect(90, 500, 75, 23));
         graphicsView = new QGraphicsView(centralWidget);
         graphicsView->setObjectName(QStringLiteral("graphicsView"));
         graphicsView->setGeometry(QRect(10, 10, 640, 480));
         graphicsView->viewport()->setProperty("cursor", QVariant(QCursor(Qt::CrossCursor)));
+        graphicsView->setFrameShape(QFrame::NoFrame);
         graphicsView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
         graphicsView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
         graphicsView->setDragMode(QGraphicsView::NoDrag);
-        lcdRange = new QLCDNumber(centralWidget);
-        lcdRange->setObjectName(QStringLiteral("lcdRange"));
-        lcdRange->setGeometry(QRect(660, 20, 71, 23));
-        lcdRange->setFrameShape(QFrame::Box);
-        lcdRange->setFrameShadow(QFrame::Plain);
-        lcdRange->setLineWidth(2);
-        lcdRange->setDigitCount(6);
-        lcdRange->setSegmentStyle(QLCDNumber::Flat);
-        lcdRange->setProperty("value", QVariant(0));
-        rangePushButton = new QPushButton(centralWidget);
-        rangePushButton->setObjectName(QStringLiteral("rangePushButton"));
-        rangePushButton->setGeometry(QRect(660, 80, 75, 23));
-        connectRFButton = new QPushButton(centralWidget);
-        connectRFButton->setObjectName(QStringLiteral("connectRFButton"));
-        connectRFButton->setGeometry(QRect(660, 50, 75, 23));
-        connectPTUButton = new QPushButton(centralWidget);
-        connectPTUButton->setObjectName(QStringLiteral("connectPTUButton"));
-        connectPTUButton->setGeometry(QRect(660, 240, 75, 23));
-        homePushButton = new QPushButton(centralWidget);
-        homePushButton->setObjectName(QStringLiteral("homePushButton"));
-        homePushButton->setGeometry(QRect(660, 270, 75, 23));
-        lcdPan = new QLCDNumber(centralWidget);
-        lcdPan->setObjectName(QStringLiteral("lcdPan"));
-        lcdPan->setGeometry(QRect(660, 180, 71, 23));
-        lcdPan->setFrameShape(QFrame::Box);
-        lcdPan->setFrameShadow(QFrame::Plain);
-        lcdPan->setLineWidth(2);
-        lcdPan->setDigitCount(6);
-        lcdPan->setSegmentStyle(QLCDNumber::Flat);
-        lcdPan->setProperty("value", QVariant(0));
-        lcdTilt = new QLCDNumber(centralWidget);
+        groupBox = new QGroupBox(centralWidget);
+        groupBox->setObjectName(QStringLiteral("groupBox"));
+        groupBox->setGeometry(QRect(660, 140, 120, 151));
+        lcdTilt = new QLCDNumber(groupBox);
         lcdTilt->setObjectName(QStringLiteral("lcdTilt"));
-        lcdTilt->setGeometry(QRect(660, 210, 71, 23));
+        lcdTilt->setGeometry(QRect(20, 50, 81, 23));
         lcdTilt->setFrameShape(QFrame::Box);
         lcdTilt->setFrameShadow(QFrame::Plain);
         lcdTilt->setLineWidth(2);
         lcdTilt->setDigitCount(6);
         lcdTilt->setSegmentStyle(QLCDNumber::Flat);
         lcdTilt->setProperty("value", QVariant(0));
+        connectPTUButton = new QPushButton(groupBox);
+        connectPTUButton->setObjectName(QStringLiteral("connectPTUButton"));
+        connectPTUButton->setGeometry(QRect(20, 80, 81, 23));
+        lcdPan = new QLCDNumber(groupBox);
+        lcdPan->setObjectName(QStringLiteral("lcdPan"));
+        lcdPan->setGeometry(QRect(20, 20, 81, 23));
+        lcdPan->setFrameShape(QFrame::Box);
+        lcdPan->setFrameShadow(QFrame::Plain);
+        lcdPan->setLineWidth(2);
+        lcdPan->setDigitCount(6);
+        lcdPan->setSegmentStyle(QLCDNumber::Flat);
+        lcdPan->setProperty("value", QVariant(0));
+        homePushButton = new QPushButton(groupBox);
+        homePushButton->setObjectName(QStringLiteral("homePushButton"));
+        homePushButton->setGeometry(QRect(20, 110, 81, 23));
+        groupBox_2 = new QGroupBox(centralWidget);
+        groupBox_2->setObjectName(QStringLiteral("groupBox_2"));
+        groupBox_2->setGeometry(QRect(660, 10, 120, 121));
+        lcdRange = new QLCDNumber(groupBox_2);
+        lcdRange->setObjectName(QStringLiteral("lcdRange"));
+        lcdRange->setGeometry(QRect(20, 20, 81, 23));
+        lcdRange->setFrameShape(QFrame::Box);
+        lcdRange->setFrameShadow(QFrame::Plain);
+        lcdRange->setLineWidth(2);
+        lcdRange->setDigitCount(6);
+        lcdRange->setSegmentStyle(QLCDNumber::Flat);
+        lcdRange->setProperty("value", QVariant(0));
+        connectRFButton = new QPushButton(groupBox_2);
+        connectRFButton->setObjectName(QStringLiteral("connectRFButton"));
+        connectRFButton->setGeometry(QRect(20, 50, 81, 23));
+        rangePushButton = new QPushButton(groupBox_2);
+        rangePushButton->setObjectName(QStringLiteral("rangePushButton"));
+        rangePushButton->setGeometry(QRect(20, 80, 81, 23));
+        learningCheckBox = new QCheckBox(centralWidget);
+        learningCheckBox->setObjectName(QStringLiteral("learningCheckBox"));
+        learningCheckBox->setGeometry(QRect(170, 500, 70, 21));
         main_windowClass->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(main_windowClass);
         menuBar->setObjectName(QStringLiteral("menuBar"));
@@ -122,12 +137,15 @@ public:
     void retranslateUi(QMainWindow *main_windowClass)
     {
         main_windowClass->setWindowTitle(QApplication::translate("main_windowClass", "TigerTracks", 0));
-        playPushButton->setText(QApplication::translate("main_windowClass", "Play", 0));
+        playPushButton->setText(QApplication::translate("main_windowClass", "Connect", 0));
         trackPushButton->setText(QApplication::translate("main_windowClass", "Track", 0));
-        rangePushButton->setText(QApplication::translate("main_windowClass", "Range", 0));
-        connectRFButton->setText(QApplication::translate("main_windowClass", "Connect", 0));
-        connectPTUButton->setText(QApplication::translate("main_windowClass", "Connect PTU", 0));
+        groupBox->setTitle(QApplication::translate("main_windowClass", "Pan/Tilt Unit", 0));
+        connectPTUButton->setText(QApplication::translate("main_windowClass", "Connect", 0));
         homePushButton->setText(QApplication::translate("main_windowClass", "Home", 0));
+        groupBox_2->setTitle(QApplication::translate("main_windowClass", "Rangefinder", 0));
+        connectRFButton->setText(QApplication::translate("main_windowClass", "Connect", 0));
+        rangePushButton->setText(QApplication::translate("main_windowClass", "Range", 0));
+        learningCheckBox->setText(QApplication::translate("main_windowClass", "Learning", 0));
     } // retranslateUi
 
 };
