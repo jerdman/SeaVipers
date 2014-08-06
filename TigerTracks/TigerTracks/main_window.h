@@ -15,6 +15,7 @@
 #include "SelectorOverlay.h"
 #include "RFInterface.h"
 #include "PTUInterface.h"
+#include "TrackerInterface.h"
 #include <iostream>
 
 class main_window : public QMainWindow
@@ -25,15 +26,19 @@ private:
 	Ui::main_windowClass ui;
 	CameraThread* camThread;
 	QPoint origin;
-	QGraphicsScene* scene;
+	QGraphicsScene* camScene;
+	QGraphicsScene* trackScene;
 	SelectorOverlay* selector;
-	QRect displayRect;
 	RFInterface* rf;
 	PTUInterface* ptu;
-	QGraphicsPixmapItem* pmi;
-	QPixmap pm;
+	QGraphicsPixmapItem* pmiCam;
+	QGraphicsPixmapItem* pmiTrack;
+	QPixmap pmCam;
+	QPixmap pmTrack;
 	QPainter* pnt;
 	int stepSize;
+	bool tracking;
+	TrackerInterface* tracker;
 
 
 public:
@@ -44,9 +49,10 @@ public:
 	void stepDown(void);
 	void stepLeft(void);
 	void stepRight(void);
+	void toggleTracking(void);
 
 private slots:
-	void updatecamThreadUI(QImage img);
+	void updateViewers(void);
 	void playVideo(void);
 	void handleSelection(QRect rect);
 	void displayError(QString message);
@@ -54,7 +60,7 @@ private slots:
 	void toggleRangefinder(void);
 	void connectPTU(void);
 	void ptuHome(void);
-	void toggleTracking(void);
+	void trackButtonClicked(void);
 };
 
 #endif // MAIN_WINDOW_H

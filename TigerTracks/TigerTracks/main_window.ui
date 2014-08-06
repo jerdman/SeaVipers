@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>792</width>
-    <height>626</height>
+    <width>800</width>
+    <height>600</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,7 +18,7 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>500</y>
+      <y>260</y>
       <width>75</width>
       <height>23</height>
      </rect>
@@ -30,8 +30,8 @@
    <widget class="QPushButton" name="trackPushButton">
     <property name="geometry">
      <rect>
-      <x>90</x>
-      <y>500</y>
+      <x>340</x>
+      <y>260</y>
       <width>75</width>
       <height>23</height>
      </rect>
@@ -40,13 +40,13 @@
      <string>Track</string>
     </property>
    </widget>
-   <widget class="QGraphicsView" name="graphicsView">
+   <widget class="QGraphicsView" name="cameraView">
     <property name="geometry">
      <rect>
       <x>10</x>
       <y>10</y>
-      <width>640</width>
-      <height>480</height>
+      <width>320</width>
+      <height>240</height>
      </rect>
     </property>
     <property name="cursor" stdset="0">
@@ -68,7 +68,7 @@
    <widget class="QGroupBox" name="groupBox">
     <property name="geometry">
      <rect>
-      <x>660</x>
+      <x>670</x>
       <y>140</y>
       <width>120</width>
       <height>151</height>
@@ -163,7 +163,7 @@
    <widget class="QGroupBox" name="groupBox_2">
     <property name="geometry">
      <rect>
-      <x>660</x>
+      <x>670</x>
       <y>10</y>
       <width>120</width>
       <height>121</height>
@@ -230,8 +230,8 @@
    <widget class="QCheckBox" name="learningCheckBox">
     <property name="geometry">
      <rect>
-      <x>170</x>
-      <y>500</y>
+      <x>420</x>
+      <y>260</y>
       <width>70</width>
       <height>21</height>
      </rect>
@@ -240,13 +240,38 @@
      <string>Learning</string>
     </property>
    </widget>
+   <widget class="QGraphicsView" name="trackerView">
+    <property name="geometry">
+     <rect>
+      <x>340</x>
+      <y>10</y>
+      <width>320</width>
+      <height>240</height>
+     </rect>
+    </property>
+    <property name="cursor" stdset="0">
+     <cursorShape>ArrowCursor</cursorShape>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::NoFrame</enum>
+    </property>
+    <property name="verticalScrollBarPolicy">
+     <enum>Qt::ScrollBarAlwaysOff</enum>
+    </property>
+    <property name="horizontalScrollBarPolicy">
+     <enum>Qt::ScrollBarAlwaysOff</enum>
+    </property>
+    <property name="dragMode">
+     <enum>QGraphicsView::NoDrag</enum>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>792</width>
+     <width>800</width>
      <height>21</height>
     </rect>
    </property>

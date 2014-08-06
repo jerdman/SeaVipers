@@ -9,12 +9,10 @@ class SelectorOverlay : public QGraphicsView
 private:
 	QRect selection;
 
-signals:
-	void selectionReady(const QRect &rect);
-
 public:
 	SelectorOverlay(QWidget *parent = 0);
 
 	void mouseReleaseEvent(QMouseEvent *event);
+	QRect getSelection(void){return selection;}
 };
 

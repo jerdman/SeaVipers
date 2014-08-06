@@ -1,7 +1,7 @@
 #include "TrackerInterface.h"
 
 
-TrackerInterface::TrackerInterface(void)
+TrackerInterface::TrackerInterface(void) : QObject()
 {
 	threshold = 0.5; // quality required for target match
 	use_small_frame = true; // for speedup
@@ -10,6 +10,13 @@ TrackerInterface::TrackerInterface(void)
 	print_result = false; // posibly add text window later
 
 	tld_tracker = new TLD();
+
+	initialized = false;
+}
+
+TrackerInterface::~TrackerInterface(void){
+	tld_tracker->release();
+	delete tld_tracker;
 }
 
 void TrackerInterface::Initialize(Mat frame_in, Rect rect_in){
@@ -39,9 +46,14 @@ void TrackerInterface::Initialize(Mat frame_in, Rect rect_in){
 
 	// starting frame and bounding box
 	tld_tracker->selectObject(grey, &bb); 
+
+	initialized = true;
 }
 
-void TrackerInterface::ConsumeFrame(Mat input){
+void TrackerInterface::consumeFrame(Mat input){
+	if(!initialized)
+		return;
+
 	// resize if necessary
 	if(use_small_frame){
 		resize(input, frame, cv::Size(), resize_factor, resize_factor);
@@ -58,7 +70,8 @@ void TrackerInterface::ConsumeFrame(Mat input){
 
 	tld_tracker->processImage(grey);
 
-	// emit signal goes here
+	currConf = tld_tracker->currConf;
+	emit ready(QRect(tld_tracker->currBB->x, tld_tracker->currBB->y, tld_tracker->currBB->width, tld_tracker->currBB->height));
 }
 
 void TrackerInterface::toggleAlternating(void){
@@ -79,9 +92,12 @@ void TrackerInterface::toggleLearning(void){
 
 void TrackerInterface::clearTracker(void){
 	tld_tracker->release();
+	initialized = false;
 }
 
 
-TrackerInterface::~TrackerInterface(void){
-	delete tld_tracker;
+
+
+bool TrackerInterface::confident(void){
+	return (currConf > 0.5); // not sure this is right
 }

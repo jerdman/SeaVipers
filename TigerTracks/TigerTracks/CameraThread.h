@@ -25,8 +25,8 @@ private:
 	OpenCVCam camera;
 
 signals:
-	void imageReady(const QImage &image);
-	void matReady(cv::Mat mat);
+	void readyMat(cv::Mat mat);
+	void readyImg(QImage img);
 
 protected:
 	void run(void);
@@ -39,5 +39,7 @@ public:
 	void playVideo(void);
 	void stopVideo(void);
 	bool isStopped(void) const;
+
+	
 };
 
