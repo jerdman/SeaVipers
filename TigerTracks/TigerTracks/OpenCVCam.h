@@ -10,9 +10,9 @@ class OpenCVCam{
 	// frame number
 	int frame;
 
-	cv::Mat inc, rgb;
+	cv::Mat inc;
 
-	QImage current;
+	//QImage current;
 	bool connected;
 
 public:
@@ -33,9 +33,7 @@ public:
 	int getCamNum(void){
 		return camnum;
 	}
-	QImage getCurrentImage(void){
-		return current;
-	}
+
 	cv::Mat getCurrentMat(void){
 		return inc;
 	}

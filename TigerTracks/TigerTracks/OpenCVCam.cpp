@@ -33,13 +33,6 @@ void OpenCVCam::disconnect(void){
 
 void OpenCVCam::capture(void){
 	vidcap.read(inc);
-	if(inc.channels() == 3)
-	{
-		cv::cvtColor(inc, rgb, cv::COLOR_BGR2RGB);
-		swap(inc, rgb);
-		current = QImage((const unsigned char*)inc.data, inc.cols, inc.rows, QImage::Format_RGB888); 
-	} else
-		current = QImage((const unsigned char*)inc.data, inc.cols, inc.rows, QImage::Format_Indexed8);
 	frame++;
 }
 

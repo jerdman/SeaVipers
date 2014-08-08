@@ -31,10 +31,8 @@ private:
 	bool hist_norm;
 	bool print_result;
 
-	double currConf;
-
 signals:
-	void ready(QRect rect);
+	void ready(cv::Mat m, cv::Rect* r);
 
 public:
 	TrackerInterface(void);
@@ -51,7 +49,7 @@ public:
 	void clearTracker(void);
 	bool confident(void);
 
-	void consumeFrame(Mat input);
-
+public slots:
+	void consumeFrame(cv::Mat input);
 };
 

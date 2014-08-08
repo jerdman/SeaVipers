@@ -25,7 +25,6 @@ void CameraThread::run(void){
 		}
 		camera.capture();
 		emit readyMat(camera.getCurrentMat());
-		emit readyImg(camera.getCurrentImage());
 		// 33 milliseconds = 1/30 seconds
 		// 111 milliseconds = 1/9 seconds
 		msleep(111);  
@@ -54,5 +53,5 @@ bool CameraThread::isStopped(void) const{
 }
 
 cv::Mat CameraThread::getCurrentMat(void){
-	return this->camera.getCurrentMat();
+	return camera.getCurrentMat();
 }

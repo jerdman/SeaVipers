@@ -5,23 +5,27 @@ main_window::main_window(QWidget *parent): QMainWindow(parent){
 	
 	// camera view
 	camThread = new CameraThread();
-	camScene = new QGraphicsScene();
-	pmiCam = camScene->addPixmap(pmCam);
+	displayScene = new QGraphicsScene();
 	connect(ui.playPushButton, SIGNAL(clicked()), this, SLOT(playVideo()));
 
 	// tracker
 	tracking = false;
 	tracker = new TrackerInterface();
 	connect(ui.trackPushButton, SIGNAL(clicked()), this, SLOT(trackButtonClicked()));
-	trackScene = new QGraphicsScene();
-	pmiTrack = trackScene->addPixmap(pmTrack);
 	
+	qRegisterMetaType<cv::Mat>("cv::Mat");
+	// connect camera output to tracker input
+	connect(camThread, SIGNAL(readyMat(cv::Mat)), tracker, SLOT(consumeFrame(cv::Mat)));
+	
+	qRegisterMetaType<cv::Rect>("cv::Rect");
+	// connect tracker output to UI input
+	connect(tracker, SIGNAL(ready(cv::Mat, cv::Rect*)), this, SLOT(updateViewers(cv::Mat, cv::Rect*)));
 
 	// for selecting bb with mouse. click & drag rectangle
 	selector = new SelectorOverlay(ui.centralWidget);
-	connect(selector, SIGNAL(selectionReady(QRect)), this, SLOT(handleSelection(QRect)));
+	//connect(selector, SIGNAL(selectionReady(QRect)), this, SLOT(handleSelection(QRect)));
 	selector->setGeometry(ui.cameraView->geometry());
-	selector->setScene(camScene);
+	selector->setScene(displayScene);
 	selector->show();
 	
 	// rangefinder
@@ -75,24 +79,33 @@ void main_window::stepRight(void){
 	ptu->panCommandRelative(-stepSize);
 }
 
-void main_window::updateViewers(void){
-	/*if(img.isNull())
+void main_window::updateViewers(cv::Mat m, cv::Rect* r){
+	if(m.empty())
 		return;
+	
+	QPainter* displayPainter;
+	QImage displayImage;
+	QPixmap displayPixmap;
+	displayPixmapItem = displayScene->addPixmap(displayPixmap);
 
-	QPixmap pix = QPixmap::fromImage(img);		
-	pnt = new QPainter(&pix);
-	if(tracking){
-		displayRect = tracker->consumeFrame(mat);
-		if(tracker->confident())
-			pnt->setPen(Qt::blue);
-		else
-			pnt->setPen(Qt::yellow);
+	if(m.channels() == 3){
+		cv::cvtColor(m, m, cv::COLOR_BGR2RGB);
+		displayImage = QImage((const unsigned char*)m.data, m.cols, m.rows, QImage::Format_RGB888);
 	} else 
-		pnt->setPen(Qt::green);
+		displayImage = QImage((const unsigned char*)m.data, m.cols, m.rows, QImage::Format_Indexed8);
+	displayPixmap = QPixmap::fromImage(displayImage);
+	displayPainter = new QPainter(&displayPixmap);
 
-	pnt->drawRect(displayRect);
-	pmi->setPixmap(pix);*/
-
+	if(tracking){
+		if(tracker->confident())
+			displayPainter->setPen(Qt::blue);
+		else
+			displayPainter->setPen(Qt::yellow);
+		displayPainter->drawRect(QRect(r->x, r->y, r->width, r->height));
+	} else {
+		displayPainter->setPen(Qt::green);
+		displayPainter->drawRect(selector->getSelection());
+	}
 }
 
 void main_window::playVideo(void){
@@ -104,10 +117,6 @@ void main_window::playVideo(void){
 		camThread->stopVideo();
 		ui.playPushButton->setText("Resume");
 	}
-}
-
-void main_window::handleSelection(QRect rect){
-	// do something?
 }
 
 void main_window::displayError(QString message){

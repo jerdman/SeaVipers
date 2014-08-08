@@ -12,6 +12,7 @@ TrackerInterface::TrackerInterface(void) : QObject()
 	tld_tracker = new TLD();
 
 	initialized = false;
+	bb = Rect();
 }
 
 TrackerInterface::~TrackerInterface(void){
@@ -50,28 +51,26 @@ void TrackerInterface::Initialize(Mat frame_in, Rect rect_in){
 	initialized = true;
 }
 
-void TrackerInterface::consumeFrame(Mat input){
-	if(!initialized)
-		return;
+void TrackerInterface::consumeFrame(cv::Mat input){
+	if(initialized){
+		// resize if necessary
+		if(use_small_frame){
+			resize(input, frame, cv::Size(), resize_factor, resize_factor);
+			cv::GaussianBlur(frame, tmp, cv::Size(0, 0), 15);
+			swap(frame, tmp);
+		} else
+			frame = input;
 
-	// resize if necessary
-	if(use_small_frame){
-		resize(input, frame, cv::Size(), resize_factor, resize_factor);
-		cv::GaussianBlur(frame, tmp, cv::Size(0, 0), 15);
-		swap(frame, tmp);
-	} else
-		frame = input;
+		cvtColor(frame, grey, CV_RGB2GRAY);
+		if(hist_norm) {
+			equalizeHist(grey, tmp);
+			swap(grey, tmp);
+		}
 
-	cvtColor(frame, grey, CV_RGB2GRAY);
-	if(hist_norm) {
-		equalizeHist(grey, tmp);
-		swap(grey, tmp);
-	}
+		tld_tracker->processImage(grey);
+	} 
 
-	tld_tracker->processImage(grey);
-
-	currConf = tld_tracker->currConf;
-	emit ready(QRect(tld_tracker->currBB->x, tld_tracker->currBB->y, tld_tracker->currBB->width, tld_tracker->currBB->height));
+	emit ready(input, tld_tracker->currBB);
 }
 
 void TrackerInterface::toggleAlternating(void){
@@ -99,5 +98,5 @@ void TrackerInterface::clearTracker(void){
 
 
 bool TrackerInterface::confident(void){
-	return (currConf > 0.5); // not sure this is right
+	return (tld_tracker->currConf > 0.5); // not sure this is right
 }

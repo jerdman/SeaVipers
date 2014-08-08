@@ -18,7 +18,7 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>260</y>
+      <y>500</y>
       <width>75</width>
       <height>23</height>
      </rect>
@@ -30,8 +30,8 @@
    <widget class="QPushButton" name="trackPushButton">
     <property name="geometry">
      <rect>
-      <x>340</x>
-      <y>260</y>
+      <x>90</x>
+      <y>500</y>
       <width>75</width>
       <height>23</height>
      </rect>
@@ -45,8 +45,8 @@
      <rect>
       <x>10</x>
       <y>10</y>
-      <width>320</width>
-      <height>240</height>
+      <width>640</width>
+      <height>480</height>
      </rect>
     </property>
     <property name="cursor" stdset="0">
@@ -230,39 +230,14 @@
    <widget class="QCheckBox" name="learningCheckBox">
     <property name="geometry">
      <rect>
-      <x>420</x>
-      <y>260</y>
+      <x>170</x>
+      <y>500</y>
       <width>70</width>
       <height>21</height>
      </rect>
     </property>
     <property name="text">
      <string>Learning</string>
-    </property>
-   </widget>
-   <widget class="QGraphicsView" name="trackerView">
-    <property name="geometry">
-     <rect>
-      <x>340</x>
-      <y>10</y>
-      <width>320</width>
-      <height>240</height>
-     </rect>
-    </property>
-    <property name="cursor" stdset="0">
-     <cursorShape>ArrowCursor</cursorShape>
-    </property>
-    <property name="frameShape">
-     <enum>QFrame::NoFrame</enum>
-    </property>
-    <property name="verticalScrollBarPolicy">
-     <enum>Qt::ScrollBarAlwaysOff</enum>
-    </property>
-    <property name="horizontalScrollBarPolicy">
-     <enum>Qt::ScrollBarAlwaysOff</enum>
-    </property>
-    <property name="dragMode">
-     <enum>QGraphicsView::NoDrag</enum>
     </property>
    </widget>
   </widget>

@@ -96,6 +96,9 @@
     <ClCompile Include="GeneratedFiles\Debug\moc_TrackerInterface.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_ViperThread.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="GeneratedFiles\qrc_main_window.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
       </PrecompiledHeader>
@@ -120,6 +123,9 @@
     <ClCompile Include="GeneratedFiles\Release\moc_TrackerInterface.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_ViperThread.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="main_window.cpp" />
     <ClCompile Include="OpenCVCam.cpp" />
@@ -128,6 +134,7 @@
     <ClCompile Include="SelectorOverlay.cpp" />
     <ClCompile Include="CameraThread.cpp" />
     <ClCompile Include="TrackerInterface.cpp" />
+    <ClCompile Include="ViperThread.cpp" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="main_window.h">
@@ -157,6 +164,16 @@
     <ClInclude Include="DataRecord.h" />
     <ClInclude Include="GeneratedFiles\ui_main_window.h" />
     <ClInclude Include="OpenCVCam.h" />
+    <CustomBuild Include="ViperThread.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing ViperThread.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets" "-I$(OPENCV_DIR)\include" "-I$(OPENCV_DIR)\include\opencv" "-I$(OPENCV_DIR)\include\opencv2" "-I$(OPENTLD_DIR)\src" "-I$(OPENTLD_DIR)\src\3rdparty" "-I$(OPENTLD_DIR)\src\3rdparty\cvblobs" "-I$(OPENTLD_DIR)\src\3rdparty\libconfig" "-I$(OPENTLD_DIR)\src\libopentld" "-I$(OPENTLD_DIR)\src\libopentld\imacq" "-I$(OPENTLD_DIR)\src\libopentld\mftracker" "-I$(OPENTLD_DIR)\src\libopentld\tld" "-I$(OPENTLD_DIR)\src\opentld" "-I$(OPENTLD_DIR)\src\opentld\main" "-I$(OPENTLD_DIR)\src\opentld\qopentld"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing ViperThread.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB "-I$(OPENTLD_DIR)\src" "-I$(OPENCV_DIR)\include\opencv2" "-I$(OPENCV_DIR)\include\opencv" "-I$(OPENCV_DIR)\include" "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets"</Command>
+    </CustomBuild>
     <CustomBuild Include="TrackerInterface.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing TrackerInterface.h...</Message>

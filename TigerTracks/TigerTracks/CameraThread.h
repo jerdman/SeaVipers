@@ -26,7 +26,6 @@ private:
 
 signals:
 	void readyMat(cv::Mat mat);
-	void readyImg(QImage img);
 
 protected:
 	void run(void);
@@ -40,6 +39,6 @@ public:
 	void stopVideo(void);
 	bool isStopped(void) const;
 
-	
+	cv::Mat getCurrentMat(void);
 };
 

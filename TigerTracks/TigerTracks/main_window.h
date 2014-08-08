@@ -25,20 +25,19 @@ class main_window : public QMainWindow
 private:
 	Ui::main_windowClass ui;
 	CameraThread* camThread;
-	QPoint origin;
-	QGraphicsScene* camScene;
-	QGraphicsScene* trackScene;
 	SelectorOverlay* selector;
 	RFInterface* rf;
 	PTUInterface* ptu;
-	QGraphicsPixmapItem* pmiCam;
-	QGraphicsPixmapItem* pmiTrack;
-	QPixmap pmCam;
-	QPixmap pmTrack;
-	QPainter* pnt;
+
 	int stepSize;
 	bool tracking;
 	TrackerInterface* tracker;
+
+	QGraphicsPixmapItem* displayPixmapItem;
+	QGraphicsScene* displayScene;
+
+
+
 
 
 public:
@@ -52,9 +51,8 @@ public:
 	void toggleTracking(void);
 
 private slots:
-	void updateViewers(void);
+	void updateViewers(cv::Mat m, cv::Rect* r);
 	void playVideo(void);
-	void handleSelection(QRect rect);
 	void displayError(QString message);
 	void connectRangefinder(void);
 	void toggleRangefinder(void);
